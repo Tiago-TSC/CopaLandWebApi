@@ -1,11 +1,12 @@
 require('dotenv').config();
 
 const server = require('./server');
+
 const init = require('./app/services/modelsService');
 
 const port = process.env.PORT || 3000;
 
-init();
+//init();
 
 server.listen(port, async () => {
   try {

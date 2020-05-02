@@ -1,6 +1,7 @@
 const Sequelize = require('sequelize');
 
 const sequelize = require('../services/dataBaseService');
+const Region = require('./Region');
 
 const State = sequelize.define('state', {
   id: {
@@ -12,6 +13,13 @@ const State = sequelize.define('state', {
   name: {
     type: Sequelize.STRING,
     allowNull: false,
+  },
+  regionId: {
+    type: Sequelize.INTEGER,
+    references: {
+      model: Region,
+      key: 'id',
+    },
   },
 });
 
