@@ -1,7 +1,6 @@
 const Region = require('../models/Region');
 
 const add = async region => {
-  console.log(region);
   Region.create(region);
 };
 
