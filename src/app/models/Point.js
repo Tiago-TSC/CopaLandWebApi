@@ -10,7 +10,7 @@ const Point = sequelize.define('point', {
     primaryKey: true,
   },
   description: {
-    type: Sequelize.STRING,
+    type: Sequelize.STRING(3),
     allowNull: false,
   },
   value: {

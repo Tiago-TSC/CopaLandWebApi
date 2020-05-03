@@ -1,17 +1,26 @@
 const stateService = require('../services/stateService');
+const sendError = require('../services/errorService');
 
 exports.add = async (req, res) => {
-  const { state } = req.body;
+  try {
+    const { state } = req.body;
 
-  await stateService.add(state);
+    await stateService.add(state);
 
-  res.sendStatus(201);
+    res.sendStatus(201);
+  } catch (err) {
+    sendError(res, err);
+  }
 };
 
 exports.addMany = async (req, res) => {
-  const { states } = req.body;
+  try {
+    const { states } = req.body;
 
-  await stateService.addMany(states);
+    await stateService.addMany(states);
 
-  res.sendStatus(201);
+    res.sendStatus(201);
+  } catch (err) {
+    sendError(res, err);
+  }
 };

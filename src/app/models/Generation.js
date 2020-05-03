@@ -10,7 +10,7 @@ const Generation = sequelize.define('generation', {
     primaryKey: true,
   },
   name: {
-    type: Sequelize.STRING,
+    type: Sequelize.STRING(50),
     allowNull: false,
   },
 });

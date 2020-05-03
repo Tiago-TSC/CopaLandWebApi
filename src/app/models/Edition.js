@@ -1,6 +1,7 @@
 const Sequelize = require('sequelize');
 
 const sequelize = require('../services/dataBaseService');
+const Generation = require('../models/Generation');
 
 const Edition = sequelize.define('edition', {
   id: {
@@ -10,12 +11,20 @@ const Edition = sequelize.define('edition', {
     primaryKey: true,
   },
   title: {
-    type: Sequelize.STRING,
+    type: Sequelize.STRING(50),
     allowNull: false,
   },
   year: {
     type: Sequelize.STRING,
     allowNull: false,
+  },
+  generationId: {
+    type: Sequelize.INTEGER,
+    allowNull: false,
+    references: {
+      model: Generation,
+      key: 'id',
+    },
   },
 });
 

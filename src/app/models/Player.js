@@ -10,7 +10,7 @@ const Player = sequelize.define('player', {
     primaryKey: true,
   },
   nickname: {
-    type: Sequelize.STRING,
+    type: Sequelize.STRING(100),
     allowNull: false,
   },
 });

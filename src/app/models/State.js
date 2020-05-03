@@ -11,11 +11,12 @@ const State = sequelize.define('state', {
     primaryKey: true,
   },
   name: {
-    type: Sequelize.STRING,
+    type: Sequelize.STRING(50),
     allowNull: false,
   },
   regionId: {
     type: Sequelize.INTEGER,
+    allowNull: false,
     references: {
       model: Region,
       key: 'id',

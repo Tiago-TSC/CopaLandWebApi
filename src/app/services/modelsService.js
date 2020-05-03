@@ -10,19 +10,19 @@ const Position = require('../models/Position');
 const Point = require('../models/Point');
 
 const init = async () => {
-  Region.hasMany(State, { foreignKey: { allowNull: false } });
-  State.hasMany(City, { foreignKey: { allowNull: false } });
+  Region.hasMany(State);
+  State.hasMany(City);
   City.belongsToMany(Player, {
     through: Association,
-    foreignKey: { name: 'cityId', allowNull: false },
+    foreignKey: { name: 'cityId' },
   });
   Player.belongsToMany(City, {
     through: Association,
-    foreignKey: { name: 'playerId', allowNull: false },
+    foreignKey: { name: 'playerId' },
   });
   Edition.hasOne(Association, { as: 'initialEditionId' });
   Edition.hasOne(Association, { as: 'finalEditionId' });
-  Generation.hasMany(Edition, { foreignKey: { allowNull: false } });
+  Generation.hasMany(Edition);
   Player.hasMany(Position, { foreignKey: { allowNull: false } });
   Edition.hasMany(Position, { foreignKey: { allowNull: false } });
   Point.hasMany(Position, { foreignKey: { allowNull: false } });
