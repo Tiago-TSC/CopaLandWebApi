@@ -6,8 +6,8 @@ const Association = require('../models/Association');
 const Player = require('../models/Player');
 const Edition = require('../models/Edition');
 const Generation = require('../models/Generation');
+const Classification = require('../models/Classification');
 const Position = require('../models/Position');
-const Point = require('../models/Point');
 
 const init = async () => {
   Region.hasMany(State);
@@ -23,9 +23,9 @@ const init = async () => {
   Edition.hasOne(Association, { as: 'initialEditionId' });
   Edition.hasOne(Association, { as: 'finalEditionId' });
   Generation.hasMany(Edition);
-  Player.hasMany(Position, { foreignKey: { allowNull: false } });
-  Edition.hasMany(Position, { foreignKey: { allowNull: false } });
-  Point.hasMany(Position, { foreignKey: { allowNull: false } });
+  Player.hasMany(Classification);
+  Edition.hasMany(Classification);
+  Position.hasMany(Classification);
   sequelize.sync();
 };
 

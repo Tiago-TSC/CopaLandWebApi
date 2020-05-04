@@ -1,7 +1,7 @@
 const Region = require('../models/Region');
 
 const add = async region => {
-  Region.create(region);
+  await Region.create(region);
 };
 
 const addMany = async regions => {
