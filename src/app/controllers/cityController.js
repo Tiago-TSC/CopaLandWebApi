@@ -1,26 +1,19 @@
 const cityService = require('../services/cityService');
-const sendError = require('../services/errorService');
 
-exports.add = async (req, res) => {
-  try {
-    const { city } = req.body;
+exports.add = async (req, res, next) => {
+  const { city } = req.body;
 
-    await cityService.add(city);
-
-    res.sendStatus(201);
-  } catch (err) {
-    sendError(res, err);
-  }
+  cityService
+    .add(city)
+    .then(result => res.sendStatus(201))
+    .catch(err => next(err));
 };
 
-exports.addMany = async (req, res) => {
-  try {
-    const { cities } = req.body;
+exports.addMany = async (req, res, next) => {
+  const { cities } = req.body;
 
-    await cityService.addMany(cities);
-
-    res.sendStatus(201);
-  } catch (err) {
-    sendError(res, err);
-  }
+  cityService
+    .addMany(cities)
+    .then(result => res.sendStatus(201))
+    .catch(err => next(err));
 };

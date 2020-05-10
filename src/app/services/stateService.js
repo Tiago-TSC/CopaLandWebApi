@@ -18,14 +18,14 @@ const add = async state => {
   }
 
   if (responseRegionId) {
-    await State.create({ name, regionId: responseRegionId });
+    return State.create({ name, regionId: responseRegionId });
   } else {
     throw new Error('Nome ou Id da região não foi informado.');
   }
 };
 
 const addMany = async states => {
-  await Promise.all(states.map(async state => add(state)));
+  return Promise.all(states.map(state => add(state)));
 };
 
 module.exports = {

@@ -1,11 +1,11 @@
 const Player = require('../models/Player');
 
 const add = async player => {
-  await Player.create(player);
+  return Player.create(player);
 };
 
 const addMany = async players => {
-  await Promise.all(players.map(async player => add(player)));
+  return Promise.all(players.map(player => add(player)));
 };
 
 module.exports = {
