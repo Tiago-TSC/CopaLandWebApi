@@ -20,8 +20,8 @@ const init = async () => {
     through: Association,
     foreignKey: { name: 'playerId' },
   });
-  Edition.hasOne(Association, { as: 'initialEditionId' });
-  Edition.hasOne(Association, { as: 'finalEditionId' });
+  Edition.hasOne(Association, { as: 'initialEdition' });
+  Edition.hasOne(Association, { as: 'finalEdition' });
   Generation.hasMany(Edition);
   Player.hasMany(Classification);
   Edition.hasMany(Classification);
