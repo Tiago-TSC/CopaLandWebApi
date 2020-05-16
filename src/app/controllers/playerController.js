@@ -5,7 +5,7 @@ exports.add = async (req, res, next) => {
 
   playerService
     .add(player)
-    .then(result => res.sendStatus(201))
+    .then(() => res.sendStatus(201))
     .catch(err => next(err));
 };
 
@@ -14,6 +14,6 @@ exports.addMany = async (req, res, next) => {
 
   playerService
     .addMany(players)
-    .then(result => res.sendStatus(201))
+    .then(() => res.sendStatus(201))
     .catch(err => next(err));
 };

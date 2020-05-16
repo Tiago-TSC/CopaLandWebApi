@@ -1,19 +1,19 @@
-const stateService = require('../services/stateService');
+const editionService = require('../services/editionService');
 
 exports.add = async (req, res, next) => {
-  const { state } = req.body;
+  const { edition } = req.body;
 
-  stateService
-    .add(state)
+  editionService
+    .add(edition)
     .then(() => res.sendStatus(201))
     .catch(err => next(err));
 };
 
 exports.addMany = async (req, res, next) => {
-  const { states } = req.body;
+  const { editions } = req.body;
 
-  stateService
-    .addMany(states)
+  editionService
+    .addMany(editions)
     .then(() => res.sendStatus(201))
     .catch(err => next(err));
 };

@@ -5,7 +5,7 @@ exports.add = async (req, res, next) => {
 
   cityService
     .add(city)
-    .then(result => res.sendStatus(201))
+    .then(() => res.sendStatus(201))
     .catch(err => next(err));
 };
 
@@ -14,6 +14,6 @@ exports.addMany = async (req, res, next) => {
 
   cityService
     .addMany(cities)
-    .then(result => res.sendStatus(201))
+    .then(() => res.sendStatus(201))
     .catch(err => next(err));
 };

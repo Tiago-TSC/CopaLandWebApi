@@ -1,19 +1,19 @@
-const regionService = require('../services/regionService');
+const positionService = require('../services/positionService');
 
 exports.add = (req, res, next) => {
-  const { region } = req.body;
+  const { position } = req.body;
 
-  regionService
-    .add(region)
+  positionService
+    .add(position)
     .then(() => res.sendStatus(201))
     .catch(err => next(err));
 };
 
 exports.addMany = (req, res, next) => {
-  const { regions } = req.body;
+  const { positions } = req.body;
 
-  regionService
-    .addMany(regions)
+  positionService
+    .addMany(positions)
     .then(() => res.sendStatus(201))
     .catch(err => next(err));
 };

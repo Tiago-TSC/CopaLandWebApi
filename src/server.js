@@ -5,6 +5,9 @@ const regionRoutes = require('./app/routes/regionRoutes');
 const stateRoutes = require('./app/routes/stateRoutes');
 const cityRoutes = require('./app/routes/cityRoutes');
 const playerRoutes = require('./app/routes/playerRoutes');
+const generationRoutes = require('./app/routes/generationRoutes');
+const editionRoutes = require('./app/routes/editionRoutes');
+const positionRoutes = require('./app/routes/positionRoutes');
 const sendError = require('./app/services/errorService');
 
 server = express();
@@ -16,6 +19,9 @@ server.use(regionRoutes);
 server.use(stateRoutes);
 server.use(cityRoutes);
 server.use(playerRoutes);
+server.use(generationRoutes);
+server.use(editionRoutes);
+server.use(positionRoutes);
 
 server.get('/', (req, res) => res.send('Service is running...'));
 
