@@ -1,21 +1,11 @@
 const State = require('../models/State');
 const Region = require('../models/Region');
+const { getIdByDescription } = require('../helpers/dataBaseHelper');
 
 const add = async state => {
   const { name, regionId, regionName } = state;
-  let responseRegionId = null;
 
-  if (!isNaN(regionId)) {
-    responseRegionId = regionId;
-  } else {
-    if (regionName) {
-      const response = await Region.findAll({ where: { name: regionName } });
-
-      if (response.length > 0) {
-        responseRegionId = response[0].id;
-      }
-    }
-  }
+  const responseRegionId = await getIdByDescription(regionId, regionName, 'name', Region);
 
   if (responseRegionId) {
     return State.create({ name, regionId: responseRegionId });

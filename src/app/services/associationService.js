@@ -2,24 +2,7 @@ const Association = require('../models/Association');
 const Player = require('../models/Player');
 const City = require('../models/City');
 const Edition = require('../models/Edition');
-
-const getId = async (id, description, fieldName, model) => {
-  let responseId = null;
-
-  if (!isNaN(id)) {
-    responseId = id;
-  } else {
-    if (description) {
-      const response = await model.findAll({ where: { [fieldName]: description } });
-
-      if (response.length > 0) {
-        responseId = response[0].id;
-      }
-    }
-  }
-
-  return responseId;
-};
+const { getIdByDescription } = require('../helpers/dataBaseHelper');
 
 const add = async association => {
   const {
@@ -33,15 +16,20 @@ const add = async association => {
     finalEditionTitle,
   } = association;
 
-  const responsePlayerId = await getId(playerId, playerNickname, 'nickname', Player);
-  const responseCityId = await getId(cityId, cityName, 'name', City);
-  const responseInitialEditionId = await getId(
+  const responsePlayerId = await getIdByDescription(playerId, playerNickname, 'nickname', Player);
+  const responseCityId = await getIdByDescription(cityId, cityName, 'name', City);
+  const responseInitialEditionId = await getIdByDescription(
     initialEditionId,
     initialEditionTitle,
     'title',
     Edition,
   );
-  const responseFinalEditionId = await getId(finalEditionId, finalEditionTitle, 'title', Edition);
+  const responseFinalEditionId = await getIdByDescription(
+    finalEditionId,
+    finalEditionTitle,
+    'title',
+    Edition,
+  );
 
   if (responsePlayerId && responseCityId) {
     return Association.create({

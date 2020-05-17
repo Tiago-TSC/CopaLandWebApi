@@ -1,21 +1,11 @@
 const City = require('../models/City');
 const State = require('../models/State');
+const { getIdByDescription } = require('../helpers/dataBaseHelper');
 
 const add = async city => {
   const { name, stateId, stateName } = city;
-  let responseStateId = null;
 
-  if (!isNaN(stateId)) {
-    responseStateId = stateId;
-  } else {
-    if (stateName) {
-      const response = await State.findAll({ where: { name: stateName } });
-
-      if (response.length > 0) {
-        responseStateId = response[0].id;
-      }
-    }
-  }
+  const responseStateId = await getIdByDescription(stateId, stateName, 'name', State);
 
   if (responseStateId) {
     return City.create({ name, stateId: responseStateId });

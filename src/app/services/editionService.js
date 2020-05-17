@@ -1,21 +1,15 @@
 const Edition = require('../models/Edition');
 const Generation = require('../models/Generation');
+const { getIdByDescription } = require('../helpers/dataBaseHelper');
 
 const add = async edition => {
   const { title, year, generationId, generationName } = edition;
-  let responseGenerationId = null;
-
-  if (!isNaN(generationId)) {
-    responseGenerationId = generationId;
-  } else {
-    if (generationName) {
-      const response = await Generation.findAll({ where: { name: generationName } });
-
-      if (response.length > 0) {
-        responseGenerationId = response[0].id;
-      }
-    }
-  }
+  const responseGenerationId = await getIdByDescription(
+    generationId,
+    generationName,
+    'name',
+    Generation,
+  );
 
   if (responseGenerationId) {
     return Edition.create({ title, year, generationId: responseGenerationId });

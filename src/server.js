@@ -9,6 +9,7 @@ const generationRoutes = require('./app/routes/generationRoutes');
 const editionRoutes = require('./app/routes/editionRoutes');
 const positionRoutes = require('./app/routes/positionRoutes');
 const associationRoutes = require('./app/routes/associationRoutes');
+const classificationRoutes = require('./app/routes/classificationRoutes');
 const sendError = require('./app/services/errorService');
 
 server = express();
@@ -24,6 +25,7 @@ server.use(generationRoutes);
 server.use(editionRoutes);
 server.use(positionRoutes);
 server.use(associationRoutes);
+server.use(classificationRoutes);
 
 server.get('/', (req, res) => res.send('Service is running...'));
 
