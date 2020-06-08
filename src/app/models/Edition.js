@@ -15,7 +15,7 @@ const Edition = sequelize.define('edition', {
     allowNull: false,
   },
   year: {
-    type: Sequelize.STRING,
+    type: Sequelize.INTEGER,
     allowNull: false,
   },
   generationId: {
