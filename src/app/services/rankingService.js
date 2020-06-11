@@ -2,9 +2,8 @@ const sequelize = require('./dataBaseService');
 
 const PositionName = require('../constants/PositionName');
 
-const getCountingPositionsQuery = (positionName, firstYear, lastYear) => {
+const getPosition = positionName => {
   let position = {};
-  let yearClause = '';
 
   switch (positionName) {
     case PositionName.first:
@@ -21,33 +20,72 @@ const getCountingPositionsQuery = (positionName, firstYear, lastYear) => {
       break;
   }
 
+  return position;
+};
+
+const getCountingPositionsQuery = (
+  positionName,
+  firstYear,
+  lastYear,
+  firstEdition,
+  lastEdition,
+) => {
+  let yearClause = '';
+  let editionClause = '';
+
+  const position = getPosition(positionName);
+
   if (firstYear && lastYear) {
     yearClause = `AND A3."year" BETWEEN ${firstYear} AND ${lastYear}`;
   }
 
-  const query = `(SELECT COUNT(*) FROM classifications A0
+  if (firstEdition && lastEdition) {
+    editionClause = `AND A3."title" BETWEEN '${firstEdition}' AND '${lastEdition}'`;
+  }
+
+  const query = `(SELECT CAST(COUNT(*) AS INTEGER) FROM classifications A0
     INNER JOIN positions A1 ON A0."positionId" = A1."id"
     INNER JOIN players A2 ON A0."playerId" = A2."id"
     INNER JOIN editions A3 ON A0."editionId" = A3."id"
-    WHERE A1."description" = '${position.number}º' AND A2."nickname" = T1."nickname" ${yearClause}) ${position.description}`;
+    WHERE
+      A1."description" = '${position.number}º'
+      AND A2."nickname" = T1."nickname"
+      ${yearClause}
+      ${editionClause}
+    ) ${position.description}`;
 
   return query;
 };
 
-const get = async () => {
+const getQuery = params => {
+  let yearClause = '';
+  let editionClause = '';
+
+  const { firstYear, lastYear, firstEdition, lastEdition } = params;
+
+  if (firstYear && lastYear) {
+    yearClause = `AND T2."year" BETWEEN ${firstYear} AND ${lastYear}`;
+  }
+
+  if (firstEdition && lastEdition) {
+    editionClause = `AND T2."title" BETWEEN '${firstEdition}' AND '${lastEdition}'`;
+  }
+
   const query = `SELECT
     T1."nickname" Jogador,
-    SUM(T3."points") Pontos,
-    ${getCountingPositionsQuery(PositionName.first, 2008, 2020)},
-    ${getCountingPositionsQuery(PositionName.second, 2008, 2020)},
-    ${getCountingPositionsQuery(PositionName.third, 2008, 2020)},
-    ${getCountingPositionsQuery(PositionName.fourth, 2008, 2020)}
+    CAST(SUM(T3."points") AS INTEGER) Pontos,
+    ${getCountingPositionsQuery(PositionName.first, firstYear, lastYear)},
+    ${getCountingPositionsQuery(PositionName.second, firstYear, lastYear)},
+    ${getCountingPositionsQuery(PositionName.third, firstYear, lastYear)},
+    ${getCountingPositionsQuery(PositionName.fourth, firstYear, lastYear)}
   FROM classifications T0
   INNER JOIN players T1 ON T0."playerId" = T1."id"
   INNER JOIN editions T2 ON T0."editionId" = T2."id"
   INNER JOIN positions T3 ON T0."positionId" = T3."id"
   WHERE
-    T2."year" BETWEEN 2008 AND 2020
+    1 = 1
+    ${yearClause}
+    ${editionClause}
   GROUP BY
     Jogador
   HAVING
@@ -59,6 +97,12 @@ const get = async () => {
     Terceiro DESC,
     Quarto DESC,
     Jogador`;
+
+  return query;
+};
+
+const get = async params => {
+  const query = getQuery(params);
 
   const response = await sequelize.query(query);
   return response[0];
