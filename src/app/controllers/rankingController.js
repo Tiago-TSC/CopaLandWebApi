@@ -1,5 +1,12 @@
 const rankingService = require('../services/rankingService');
 
+exports.getMain = (req, res, next) => {
+  rankingService
+    .get({ main: true })
+    .then(result => res.send(result))
+    .catch(err => next(err));
+};
+
 exports.getHistorical = (req, res, next) => {
   rankingService
     .get({})
@@ -21,6 +28,15 @@ exports.getEditionRange = (req, res, next) => {
 
   rankingService
     .get({ firstEdition, lastEdition })
+    .then(result => res.send(result))
+    .catch(err => next(err));
+};
+
+exports.getGeneration = (req, res, next) => {
+  const { generationId } = req.params;
+
+  rankingService
+    .get({ generationId })
     .then(result => res.send(result))
     .catch(err => next(err));
 };
