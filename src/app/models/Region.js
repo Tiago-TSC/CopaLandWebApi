@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize');
 
-const sequelize = require('../services/dataBaseService');
+const sequelize = require('../services/databaseService');
 
 const Region = sequelize.define('region', {
   id: {

@@ -1,4 +1,4 @@
-const sequelize = require('./dataBaseService');
+const sequelize = require('./databaseService');
 
 const PositionName = require('../constants/PositionName');
 const RankingType = require('../constants/RankingType');

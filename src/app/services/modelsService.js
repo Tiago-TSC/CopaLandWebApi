@@ -1,4 +1,4 @@
-const sequelize = require('./dataBaseService');
+const sequelize = require('./databaseService');
 const Region = require('../models/Region');
 const State = require('../models/State');
 const City = require('../models/City');

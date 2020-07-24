@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize');
 
-const sequelize = require('../services/dataBaseService');
+const sequelize = require('../services/databaseService');
 const City = require('../models/City');
 const Player = require('../models/Player');
 const Edition = require('../models/Edition');

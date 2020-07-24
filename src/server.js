@@ -1,5 +1,4 @@
 const express = require('express');
-const bodyParser = require('body-parser');
 
 const regionRoutes = require('./app/routes/regionRoutes');
 const stateRoutes = require('./app/routes/stateRoutes');
@@ -13,10 +12,9 @@ const classificationRoutes = require('./app/routes/classificationRoutes');
 const rankingRoutes = require('./app/routes/rankingRoutes');
 const sendError = require('./app/services/errorService');
 
-server = express();
+const server = express();
 
-server.use(bodyParser.urlencoded({ extended: true }));
-server.use(bodyParser.json());
+server.use(express.urlencoded({ extended: false }));
 
 server.use(regionRoutes);
 server.use(stateRoutes);
