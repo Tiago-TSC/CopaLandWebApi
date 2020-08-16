@@ -14,6 +14,10 @@ const State = sequelize.define('state', {
     type: Sequelize.STRING(50),
     allowNull: false,
   },
+  abbreviation: {
+    type: Sequelize.STRING(3),
+    allowNull: false,
+  },
   regionId: {
     type: Sequelize.INTEGER,
     allowNull: false,

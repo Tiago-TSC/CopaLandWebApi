@@ -14,6 +14,7 @@ const sendError = require('./app/services/errorService');
 
 const server = express();
 
+server.use(express.json());
 server.use(express.urlencoded({ extended: false }));
 
 server.use(regionRoutes);

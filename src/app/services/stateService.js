@@ -3,12 +3,12 @@ const Region = require('../models/Region');
 const { getIdByDescription } = require('../helpers/dataBaseHelper');
 
 const add = async state => {
-  const { name, regionId, regionName } = state;
+  const { name, abbreviation, regionId, regionName } = state;
 
   const responseRegionId = await getIdByDescription(regionId, regionName, 'name', Region);
 
   if (responseRegionId) {
-    return State.create({ name, regionId: responseRegionId });
+    return State.create({ name, abbreviation, regionId: responseRegionId });
   } else {
     throw new Error('Nome ou Id da região não foi informado.');
   }

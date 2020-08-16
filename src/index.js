@@ -1,10 +1,16 @@
 require('dotenv').config();
+const fs = require('fs');
 
 const server = require('./server');
 
+const { tmpPath } = require('./app/helpers/pathHelper');
 const init = require('./app/services/modelsService');
 
 const port = process.env.PORT || 3000;
+
+if (!fs.existsSync(tmpPath)) {
+  fs.mkdirSync(tmpPath);
+}
 
 //init();
 
