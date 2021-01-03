@@ -115,7 +115,7 @@ const getCountingPositionsQuery = (positionName, params, positionJoin, positionC
 
   if (main) {
     generationClause = `AND A3."generationId" =
-      (SELECT "generationId" FROM editions WHERE "year" = (SELECT MAX("year") FROM editions))`;
+      (SELECT "generationId" FROM editions WHERE "year" = (SELECT MAX("year") FROM editions) LIMIT 1)`;
   } else if (generationId) {
     generationClause = `AND A3."generationId" = ${generationId}`;
   }
@@ -166,7 +166,7 @@ const getQuery = params => {
 
     if (main) {
       generationClause = `AND T2."generationId" =
-      (SELECT "generationId" FROM editions WHERE "year" = (SELECT MAX("year") FROM editions))`;
+      (SELECT "generationId" FROM editions WHERE "year" = (SELECT MAX("year") FROM editions) LIMIT 1)`;
     } else if (generationId) {
       const parsedGenerationId = parseInt(generationId);
 
