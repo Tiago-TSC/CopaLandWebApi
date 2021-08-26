@@ -11,7 +11,9 @@ const Position = require('../models/Position');
 
 const init = async () => {
   Region.hasMany(State);
+  State.belongsTo(Region);
   State.hasMany(City);
+  City.belongsTo(State);
   City.belongsToMany(Player, {
     through: Association,
     foreignKey: { name: 'cityId' },
@@ -25,7 +27,9 @@ const init = async () => {
   Generation.hasMany(Edition);
   Player.hasMany(Classification);
   Edition.hasMany(Classification);
+  Classification.belongsTo(Edition);
   Position.hasMany(Classification);
+  Classification.belongsTo(Position);
   sequelize.sync();
 };
 

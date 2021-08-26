@@ -17,3 +17,10 @@ exports.addMany = async (req, res, next) => {
     .then(() => res.sendStatus(201))
     .catch(err => next(err));
 };
+
+exports.get = async (req, res, next) => {
+  playerService
+    .get()
+    .then(players => res.send(players))
+    .catch(err => next(err));
+};

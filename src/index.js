@@ -12,7 +12,7 @@ if (!fs.existsSync(tmpPath)) {
   fs.mkdirSync(tmpPath);
 }
 
-//init();
+init();
 
 server.listen(port, async () => {
   try {
