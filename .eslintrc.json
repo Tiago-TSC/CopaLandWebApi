@@ -1,0 +1,25 @@
+{
+  "env": {
+    "commonjs": true,
+    "es6": true,
+    "node": true
+  },
+  "extends": "airbnb-base",
+  "globals": {
+    "Atomics": "readonly",
+    "SharedArrayBuffer": "readonly"
+  },
+  "parserOptions": {
+    "ecmaVersion": 2018
+  },
+  "rules": {
+    "class-methods-use-this": "off",
+    "no-console": "off",
+    "no-plusplus": "off",
+    "no-throw-literal": "off",
+    "no-await-in-loop": "off",
+    "no-param-reassign": "off",
+    "no-nested-ternary": "off",
+    "no-return-await": "off"
+  }
+}
