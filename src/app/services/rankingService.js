@@ -100,6 +100,7 @@ const getCountingPositionsQuery = (positionName, params, positionJoin, positionC
   let yearClause = '';
   let editionClause = '';
   let generationClause = '';
+  let mainClause = '';
 
   const { main, firstYear, lastYear, firstEdition, lastEdition, generationId } = params;
 
@@ -114,8 +115,7 @@ const getCountingPositionsQuery = (positionName, params, positionJoin, positionC
   }
 
   if (main) {
-    generationClause = `AND A3."generationId" =
-      (SELECT "generationId" FROM editions WHERE "year" = (SELECT MAX("year") FROM editions) LIMIT 1)`;
+    mainClause = 'AND A3."id" IN (SELECT id FROM editions ORDER BY id DESC LIMIT 4)';
   } else if (generationId) {
     generationClause = `AND A3."generationId" = ${generationId}`;
   }
@@ -140,16 +140,10 @@ const getQuery = params => {
   let yearClause = '';
   let editionClause = '';
   let generationClause = '';
+  let mainClause = '';
 
-  const {
-    main,
-    rankingType,
-    firstYear,
-    lastYear,
-    firstEdition,
-    lastEdition,
-    generationId,
-  } = params;
+  const { main, rankingType, firstYear, lastYear, firstEdition, lastEdition, generationId } =
+    params;
 
   const identifier = getIdentifier(rankingType);
 
@@ -165,8 +159,7 @@ const getQuery = params => {
     }
 
     if (main) {
-      generationClause = `AND T2."generationId" =
-      (SELECT "generationId" FROM editions WHERE "year" = (SELECT MAX("year") FROM editions) LIMIT 1)`;
+      mainClause = 'AND T2."id" IN (SELECT id FROM editions ORDER BY id DESC LIMIT 4)';
     } else if (generationId) {
       const parsedGenerationId = parseInt(generationId);
 
@@ -195,6 +188,7 @@ const getQuery = params => {
     ${yearClause}
     ${editionClause}
     ${generationClause}
+    ${mainClause}
   GROUP BY
     ${label}
   HAVING
