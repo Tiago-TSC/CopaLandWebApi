@@ -131,6 +131,7 @@ const getCountingPositionsQuery = (positionName, params, positionJoin, positionC
       ${yearClause}
       ${editionClause}
       ${generationClause}
+      ${mainClause}
     ) ${position.description}`;
 
   return query;
